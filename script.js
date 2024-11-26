@@ -28,7 +28,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     async function fetchUserDetails(username){
-        cons url = `https://leetcode-stats-api.herokuapp.com/<YOUR_USERNAME>`
+        const url = `https://leetcode.com/graphql/`
+        try{
+            searchButton.textContent = "Searching...";
+            searchButton.disabled = true;
+            const response = await fetch(url);
+            if(!response.ok){
+                throw new Error("Unable to fetch the User details");
+            }
+            const data = await response.json();
+            console.log("Logging data: ", data);
+        }
+        catch(error){
+            statsContainer.innerHTML = `<p> No Data Found </p>`
+        }
+        finally{
+            searchButton.textContent = "Search";
+            searchButton.disabled = false;
+        }
     }
 
     searchButton.addEventListener("click", function() {
