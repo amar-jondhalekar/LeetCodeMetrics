@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
       searchButton.textContent = "Searching...";
       searchButton.disabled = true;
       // const response = await fetch(url);
-      const proxyUrl = `https://cors-anywhere.herokuapp.com`;
+      const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
       const targetUrl = `https://leetcode.com/graphql/`;
       //  concatenated url : https://cors-anywhere.herokuapp.com/https://leetcode.com/graphql/
       const myHeaders = new Headers();
@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const graphql = JSON.stringify({
         query:
-          "\n    query userProfileUserQuestionProgressV2($userSlug: String!) {\n  userProfileUserQuestionProgressV2(userSlug: $userSlug) {\n    numAcceptedQuestions {\n      count\n      difficulty\n    }\n    numFailedQuestions {\n      count\n      difficulty\n    }\n    numUntouchedQuestions {\n      count\n      difficulty\n    }\n    userSessionBeatsPercentage {\n      difficulty\n      percentage\n    }\n    totalQuestionBeatsPercentage\n  }\n}\n    ",
-        variables: { userSlug: `${username}` },
-        operationName: "userProfileUserQuestionProgressV2",
+          "\n    query userSessionProgress($username: String!) {\n  allQuestionsCount {\n    difficulty\n    count\n  }\n  matchedUser(username: $username) {\n    submitStats {\n      acSubmissionNum {\n        difficulty\n        count\n        submissions\n      }\n      totalSubmissionNum {\n        difficulty\n        count\n        submissions\n      }\n    }\n  }\n}\n    ",
+        variables: { username: `${username}` },
+        operationName: "userSessionProgress",
       });
 
       const requestOptions = {
@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       const data = await response.json();
       console.log("Logging data: ", data);
+
+      displayUserData(data);
     } catch (error) {
       statsContainer.innerHTML = `<p> No Data Found </p>`;
     } finally {
@@ -64,6 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
       searchButton.disabled = false;
     }
   }
+
+  function displayUserData(data) {}
 
   searchButton.addEventListener("click", function () {
     const username = usernameInput.value;
