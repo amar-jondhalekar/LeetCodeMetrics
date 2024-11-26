@@ -11,4 +11,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const mediumLabel = document.getElementById("medium-label");
     const hardLabel = document.getElementById("hard-label");
     const cardStatsContainer = document.querySelector(".stats-cards");
+
+
+    // return true or false based on a regex
+    function validateUsername(username){
+        if(username.trim() === ""){
+            alert("Username should not be empty");
+            return false;
+        }
+        const regex = /^[a-zA-Z0-9_-]{1,15}$/;
+    }
+
+    searchButton.addEventListener("click", function() {
+        const username = usernameInput.value;
+        console.log("logging username: ", username);
+    })
 })
