@@ -20,10 +20,22 @@ document.addEventListener("DOMContentLoaded", function() {
             return false;
         }
         const regex = /^[a-zA-Z0-9_-]{1,15}$/;
+        const isMatching = regex.test(username);
+        if(!isMatching){
+            alert("Invalid Username");
+        }
+        return isMatching;
+    }
+
+    async function fetchUserDetails(username){
+        cons url = `https://leetcode-stats-api.herokuapp.com/<YOUR_USERNAME>`
     }
 
     searchButton.addEventListener("click", function() {
         const username = usernameInput.value;
         console.log("logging username: ", username);
+        if(validateUsername(username)){
+            fetchUserDetails(username);
+        }
     })
 })
